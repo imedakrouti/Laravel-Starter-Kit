@@ -37,20 +37,28 @@ class RegisterRequest extends FormRequest
         return
             ['name.required' => 'name is required'];
     }
-    public function failedValidation(Validator $validator)
+    // public function failedValidation(Validator $validator)
 
+    // {
+
+    //     throw new HttpResponseException(response()->json([
+
+    //         'success'   => false,
+
+    //         'message'   => 'Validation errors',
+
+    //         'data'      => $validator->errors()
+
+    //     ]));
+
+    // }
+    protected function failedValidation(Validator $validator)
     {
-
         throw new HttpResponseException(response()->json([
-
-            'success'   => false,
-
-            'message'   => 'Validation errors',
-
-            'data'      => $validator->errors()
-
-        ]));
-
+            'success' => false,
+            'message' => 'Validation errors',
+            'data' => $validator->errors(),
+        ], 422)); // Set status code to 422
     }
     
 }
